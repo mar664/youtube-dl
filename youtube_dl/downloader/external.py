@@ -182,9 +182,9 @@ class Aria2cFD(ExternalFD):
     AVAILABLE_OPT = '-v'
 
     def _make_cmd(self, tmpfilename, info_dict):
-        cmd = [self.exe, '-c']
+        cmd = ["proxychains4", "/ubuntu/scripts/aria2/src/aria2c", '-c']
         cmd += self._configuration_args([
-            '--min-split-size', '1M', '--max-connection-per-server', '4'])
+            '--min-split-size', '20M', '--max-connection-per-server', '16'])
         dn = os.path.dirname(tmpfilename)
         if dn:
             cmd += ['--dir', dn]
@@ -228,7 +228,7 @@ class FFmpegFD(ExternalFD):
             return False
         ffpp.check_version()
 
-        args = [ffpp.executable, '-y']
+        args = ['proxychains4', ffpp.executable, '-y']
 
         for log_level in ('quiet', 'verbose'):
             if self.params.get(log_level, False):
